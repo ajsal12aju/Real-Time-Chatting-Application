@@ -18,5 +18,5 @@ function ChatPage() {
     </div>
   )
 }
-1
+
 export default ChatPage
