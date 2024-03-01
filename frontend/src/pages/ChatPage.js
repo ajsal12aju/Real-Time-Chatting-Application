@@ -14,7 +14,7 @@ function ChatPage() {
     
   return (
     <div>
-      welcome to chat page
+      welcome to chat page SET
     </div>
   )
 }
