@@ -14,7 +14,7 @@ function ChatPage() {
     
   return (
     <div>
-      welcome to chat page SETA
+      welcome to chat page  ES
     </div>
   )
 }
