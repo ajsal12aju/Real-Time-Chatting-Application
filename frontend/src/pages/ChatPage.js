@@ -17,11 +17,10 @@ const [chats, setChats] = useState([]);
     
   return (
     <div>
-        {chats.map((chat)=>{
-            
+        {chats.map((chat)=>(
             <div key={chat._id}>{chat.chatName}</div>
-        })}
-      welcome to chat page he  done
+        ))}
+      welcome to chat page he done
     </div>
   )
 }
