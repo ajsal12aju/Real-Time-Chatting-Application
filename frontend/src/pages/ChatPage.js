@@ -21,7 +21,7 @@ const fetchChats = async () => {
         {chats.map((chat)=>(
             <div key={chat._id}>{chat.chatName}</div>
         ))}
-        welcome to home page
+        welcome to home pages
     </div>
   )
 }
