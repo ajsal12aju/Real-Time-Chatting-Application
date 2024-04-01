@@ -18,7 +18,7 @@ function HomePage() {
       Sign Up
     </Text>
     </Box>
-<Box>
+<Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
 
 </Box>
    </Container>
