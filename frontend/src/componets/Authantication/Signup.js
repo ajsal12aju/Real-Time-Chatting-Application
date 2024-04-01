@@ -56,10 +56,10 @@ function Signup() {
         />
       </FormControl>
 
-      <Button color='blue' style={{marginTop:15}} onClick={submitHandler}>
-
+      <Button w='100%' bg='darkslateblue' style={{marginTop:15}} onClick={submitHandler}>
+          Submit
       </Button>
-    </VStack>
+    </VStack> 
   );
 }
 
