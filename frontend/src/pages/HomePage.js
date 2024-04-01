@@ -18,7 +18,7 @@ function HomePage() {
         borderWidth="1px"
       >
         <Text fontSize="4xl" fontFamily="work sans" color="black">
-          Sign Up
+          Welcome To Chat App
         </Text>
       </Box>
       <Box
@@ -29,7 +29,7 @@ function HomePage() {
         borderWidth="1px"
         color="black"
       >
-        <Tabs variant="soft-rounded">
+        <Tabs variant="soft-rounded">   
           <TabList mb="1em">
             <Tab width="50%">Login</Tab>
             <Tab width="50%">Sign Up</Tab>
