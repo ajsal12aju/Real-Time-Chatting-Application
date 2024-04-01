@@ -9,6 +9,7 @@ function HomePage() {
       <Box
         display="flex"
         justifyContent="center"
+        alignItems="center"
         p={"3"}
         bg={"white"}
         w="100%"

@@ -10,10 +10,10 @@ import {
 import React, { useState } from "react";
 
 function Login() {
-  
+      const [show, setShow] = useState(false);
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [confirmpassword, setConfirmpassword] = useState();
 
   const handleClick = () => {
     setShow(!show);
@@ -48,6 +48,7 @@ function Login() {
       <Button
         w="100%"
         bg="darkslateblue"
+        color="white"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
       >
@@ -56,6 +57,7 @@ function Login() {
       <Button
         w="100%"
         bg="red"
+        color="white"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
       >

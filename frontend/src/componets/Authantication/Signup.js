@@ -50,16 +50,18 @@ function Signup() {
       </FormControl>
       <FormControl id="pic" isRequired>
         <FormLabel>Upload Your Picture</FormLabel>
-        <Input
-          type='file'
-          onChange={(e) => postDetails(e.target.files[0])}
-        />
+        <Input type="file" onChange={(e) => postDetails(e.target.files[0])} />
       </FormControl>
-
-      <Button w='100%' bg='darkslateblue' style={{marginTop:15}} onClick={submitHandler}>
-          Submit
+      <Button
+        color="white"
+        w="100%"
+        bg="darkslateblue"
+        style={{ marginTop: 15 }}
+        onClick={submitHandler}
+      >
+        Submit
       </Button>
-    </VStack> 
+    </VStack>
   );
 }
 
