@@ -18,11 +18,18 @@ function HomePage() {
           Sign Up
         </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px" color="black">
+      <Box
+        bg="white"
+        w="100%"
+        p={4}
+        borderRadius="lg"
+        borderWidth="1px"
+        color="black"
+      >
         <Tabs variant="soft-rounded">
           <TabList mb="1em">
-            <Tab>Login</Tab>
-            <Tab>Sign Up</Tab>
+            <Tab width="50%">Login</Tab>
+            <Tab width="50%">Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
