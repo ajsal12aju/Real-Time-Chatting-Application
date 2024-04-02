@@ -18,7 +18,7 @@ function HomePage() {
         borderWidth="1px"
       >
         <Text fontSize="4xl" fontFamily="work sans" color="black">
-          Welcome To Chat App
+          Welcome To Chat Aplicatun
         </Text>
       </Box>
       <Box
