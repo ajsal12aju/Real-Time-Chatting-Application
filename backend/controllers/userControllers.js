@@ -25,7 +25,8 @@ const userExisits =  await User.findOne({email})
             _id:user.id,
             name:user.name,
             email:email,
-            pic: user.pic
+            pic: user.pic,
+            token: generateToken(user._id)
         });
 
     }else{
