@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv")
 const { chats } = require("./data/data");
 const connectDB = require("./config/db");
-
+const colors = require("colors")
 
 dotenv.config();
 
@@ -23,5 +23,5 @@ app.get("/api/chat/:id", (req, res) => {
   res.send(req);
 }); 
 
-app.listen(PORT, console.log(`server is start on Ports ${PORT}`));
+app.listen(PORT, console.log(`server is start on Ports ${PORT}`.yellow.bold));
 
