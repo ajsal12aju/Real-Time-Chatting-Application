@@ -14,6 +14,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000
 
+app.use('/api/user', userRoutes)
 
 app.get("/api/chat" , (req, res) => {
     res.send(chats)
