@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 const { chats } = require("./data/data");
 const connectDB = require("./config/db");
 const colors = require("colors")
+const userRoute = require('./routes/userRoutes')
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000
 
-app.use('/api/user', userRoutes)
+app.use("/api/user", userRoute);
 
 app.get("/api/chat" , (req, res) => {
     res.send(chats)
