@@ -11,14 +11,13 @@ const registerUser = asyncHandler(async (req, res)=>{
 const userExisits =  await User.findOne({email})
     if(userExisits){
         res.status(400);
-        throw new Error("user is allready exists")
+        throw new Error("user is allready existss")
     }
-
     const user = await User.create({
         name,
         email,
         password,
-         pic
+        pic
     })  
 
     if(user){
