@@ -6,7 +6,7 @@ const registerUser = asyncHandler(async (req, res)=>{
 
     if(!name || !email || !password) {
         res.status(400);
-        throw new Error("please Enter all the feilds")
+        throw new Error("please Enter all the feild")
     }
 const userExisits =  await User.findOne({email})
     if(userExisits){
@@ -51,11 +51,10 @@ const user = await User.create({
              pic: user.pic,
              token: generateToken(user._id),
            });
-         } else {
+         } else {   
            res.status(400);
            throw new Error("Invalied user name and passwordd");
          }
     })
-
 
     module.exports = {registerUser}
