@@ -11,7 +11,7 @@ const registerUser = asyncHandler(async (req, res)=>{
 const userExisits =  await User.findOne({email})
     if(userExisits){
         res.status(400);
-        throw new Error("user is allready existss")
+        throw new Error("user is allready exists")
     }
     const user = await User.create({
         name,
