@@ -17,6 +17,9 @@ const PORT = process.env.PORT || 5000
 
 app.use("/api/user", userRoute);
 
+app.user(notFound)
+app.user(errorHandler)
+
 app.get("/api/chat" , (req, res) => {
     res.send(chats)
 })
