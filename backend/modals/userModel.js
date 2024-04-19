@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 
 const userSchema = mongoose.Schema(
   {
@@ -19,6 +19,11 @@ const userSchema = mongoose.Schema(
   },
   { timestaps: true }
 );
+
+userSchema.methods.matchPassword = async function (enteredPassword){
+  return await bcrypt.compare(enteredPassword, this.password);
+}
+
 
 userSchema.pre('save', async function (next) {
   if(!this.modified){
