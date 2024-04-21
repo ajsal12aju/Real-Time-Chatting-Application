@@ -1,5 +1,6 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useToast } from '@chakra-ui/react';
 
 function Signup() {
 
@@ -9,12 +10,23 @@ function Signup() {
     const [password, setPassword] = useState();
     const [confirmpassword, setConfirmpassword] = useState();
     const [pic, setPic] = useState();
+    const [loading, setLoading] = useState(false);
 
+    const toast = useToast()
     const handleClick = () =>{
         setShow(!show)
     }
     const postDetails = () => {
-
+ setLoading(true);
+ if(pic === undefined){
+ toast({
+   title: "Account created.",
+   description: "We've created your account for you.",
+   status: "success",
+   duration: 9000,
+   isClosable: true,
+ });
+ }
     }
   const submitHandler = () => {};
   return (
