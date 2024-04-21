@@ -64,7 +64,7 @@ if( !email || !password ){
      toast({
        title: "Error Occuerd.",
        description: "We've created your account for you.",
-       status: "fail",
+       status: "warning",
        duration: 5000,
        isClosable: true,
      });

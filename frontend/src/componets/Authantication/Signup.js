@@ -1,7 +1,8 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useToast } from '@chakra-ui/react';
-axi
+import axios from "axios";
+import {useHistory} from "react-router-dom"
 
 function Signup() {
 
@@ -14,6 +15,8 @@ function Signup() {
     const [loading, setLoading] = useState(false);
 console.log(pic, "===pic===");
     const toast = useToast()
+ const history = useHistory()
+
     const handleClick = () =>{
         setShow(!show)
     }
@@ -22,7 +25,7 @@ console.log(pic, "===pic===");
       if (pics === undefined) {
         toast({
           title: "Please select an image.",
-          description: "We've created your account for you.",
+          description: "We've created your account.",
           status: "warning",
           duration: 5000,
           isClosable: true,
@@ -77,9 +80,30 @@ if(!name || !email || !password || !confirmpassword ){
         "Content-type": "application/json",
       },
     };
-    const {data} = await axios.post()
+    const { data } = await axios.post(
+      "/api/user",
+      { name, email, password, pic },
+      config
+    );
+  toast({
+    title: "Registration Successfull.",
+    description: "We've created your account for you.",
+    status: "success",
+    duration: 5000,
+    isClosable: true,
+  });
+  localStorage.setItem("userInfo", JSON.stringify(data))
+  setLoading(false);
+  history.push('/chats')
   } catch (error) {
-    
+     toast({
+       title: "Error Occuerd.",
+       description: "We've created your account for you.",
+       status: "fail",
+       duration: 5000,
+       isClosable: true,
+     });
+       setLoading(false);
   }
 
   };
@@ -106,6 +130,21 @@ if(!name || !email || !password || !confirmpassword ){
             type={show ? "text" : "password"}
             placeholder="Enter Your Password"
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handleClick}>
+              {show ? "Hide" : "show"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+      </FormControl>
+      <FormControl id="password" isRequired>
+        <FormLabel>Confirm Password</FormLabel>
+        <InputGroup>
+          <Input
+            type={show ? "text" : "password"}
+            placeholder="Enter Your Password"
+            onChange={(e) => setConfirmpassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
