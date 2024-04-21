@@ -8,18 +8,69 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useToast } from '@chakra-ui/react';
+import axios from "axios";
+import {useHistory} from "react-router-dom"
 
 function Login() {
       const [show, setShow] = useState(false);
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+    const [loading, setLoading] = useState(false);
+
+    const toast = useToast()
+ const history = useHistory()
+
 
   const handleClick = () => {
     setShow(!show);
   };
   const postDetails = () => {};
-  const submitHandler = () => {};
+  const submitHandler = async () => {
+    setLoading(true);
+if( !email || !password ){
+  toast({
+    title: "Please fill all the feilds.",
+    description: "We've created your account for you.",
+    status: "warning",
+    duration: 5000,
+    isClosable: true,
+  });
+  setLoading(false);
+}
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "/api/user/login",
+      { email, password },
+      config
+    );
+  toast({
+    title: "Registration Successfull.",
+    description: "We've created your account for you.",
+    status: "success",
+    duration: 5000,
+    isClosable: true,
+  });
+  localStorage.setItem("userInfo", JSON.stringify(data))
+  setLoading(false);
+  history.push('/chats')
+  } catch (error) {
+     toast({
+       title: "Error Occuerd.",
+       description: "We've created your account for you.",
+       status: "fail",
+       duration: 5000,
+       isClosable: true,
+     });
+       setLoading(false);
+  }
+  };
   return (
     <VStack color="black">
       <FormControl id="email" isRequired>
