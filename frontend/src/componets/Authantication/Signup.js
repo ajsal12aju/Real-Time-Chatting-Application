@@ -1,6 +1,7 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useToast } from '@chakra-ui/react';
+axi
 
 function Signup() {
 
@@ -70,7 +71,16 @@ if(!name || !email || !password || !confirmpassword ){
   });
   setLoading(false);
 }
-  
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const {data} = await axios.post()
+  } catch (error) {
+    
+  }
 
   };
   return (
