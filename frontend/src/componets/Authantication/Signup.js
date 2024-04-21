@@ -40,7 +40,20 @@ function Signup() {
         .then((data)=>{
           setPic(data.url.toString());
           setLoading(false)
+        }).catch((err) => {
+          console.log(err);
+          setLoading(false)
         })
+      }else{
+         toast({
+           title: "Please select an image.",
+           description: "We've created your account for you.",
+           status: "warning",
+           duration: 5000,
+           isClosable: true,
+         });
+         setLoading(false);
+         return
       }
     };
   const submitHandler = () => {};
