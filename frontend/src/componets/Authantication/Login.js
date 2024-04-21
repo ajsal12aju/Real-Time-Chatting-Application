@@ -51,7 +51,7 @@ if( !email || !password ){
       config
     );
   toast({
-    title: "Registration Successfull.",
+    title: "Login Successfull.",
     description: "We've created your account for you.",
     status: "success",
     duration: 5000,
@@ -77,6 +77,7 @@ if( !email || !password ){
         <FormLabel>Email</FormLabel>
         <Input
           placeholder="Enter Your Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
@@ -84,6 +85,7 @@ if( !email || !password ){
         <FormLabel>Password</FormLabel>
         <InputGroup>
           <Input
+            value={password}
             type={show ? "text" : "password"}
             placeholder="Enter Your Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -102,6 +104,7 @@ if( !email || !password ){
         color="white"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
+        isLoading={loading}
       >
         Login
       </Button>
@@ -110,7 +113,10 @@ if( !email || !password ){
         bg="red"
         color="white"
         style={{ marginTop: 15 }}
-        onClick={submitHandler}
+        onClick={()=>{
+          setEmail("guest@Example.com")
+          setPassword("123456")
+        }}
       >
         Get Gust User Credentials
       </Button>
