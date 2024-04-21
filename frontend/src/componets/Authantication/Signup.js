@@ -11,7 +11,7 @@ function Signup() {
     const [confirmpassword, setConfirmpassword] = useState();
     const [pic, setPic] = useState();
     const [loading, setLoading] = useState(false);
-
+console.log(pic, "===pic===");
     const toast = useToast()
     const handleClick = () =>{
         setShow(!show)
@@ -38,6 +38,8 @@ function Signup() {
           body:data,
         }).then((res)=> res.json())
         .then((data)=>{
+                    console.log(data);
+
           setPic(data.url.toString());
           setLoading(false)
         }).catch((err) => {
@@ -56,7 +58,21 @@ function Signup() {
          return
       }
     };
-  const submitHandler = () => {};
+  const submitHandler = async () => {
+setLoading(true);
+if(!name || !email || !password || !confirmpassword ){
+  toast({
+    title: "Please fill all the feilds.",
+    description: "We've created your account for you.",
+    status: "warning",
+    duration: 5000,
+    isClosable: true,
+  });
+  setLoading(false);
+}
+  
+
+  };
   return (
     <VStack color="black">
       <FormControl id="first-name" isRequired>
@@ -98,6 +114,7 @@ function Signup() {
         bg="darkslateblue"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
+        isLoading={loading}
       >
         Submit
       </Button>
