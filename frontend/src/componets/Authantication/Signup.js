@@ -16,18 +16,33 @@ function Signup() {
     const handleClick = () =>{
         setShow(!show)
     }
-    const postDetails = () => {
- setLoading(true);
- if(pic === undefined){
- toast({
-   title: "Account created.",
-   description: "We've created your account for you.",
-   status: "success",
-   duration: 9000,
-   isClosable: true,
- });
- }
-    }
+    const postDetails = (pics) => {
+      setLoading(true);
+      if (pics === undefined) {
+        toast({
+          title: "Please select an image.",
+          description: "We've created your account for you.",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+        return;
+      }
+      if(pics.type === "image/jpeg"  || pics.type === "image/png"){
+        const data = new FormData();
+        data.append("file", pics);
+        data.append("upload_preset", "chat-app");
+        data.append("cloud_name", "du5bvvdpv");
+        fetch("https://api.cloudinary.com/v1_1/du5bvvdpv/image/upload", {
+          method:"post",
+          body:data,
+        }).then((res)=> res.json())
+        .then((data)=>{
+          setPic(data.url.toString());
+          setLoading(false)
+        })
+      }
+    };
   const submitHandler = () => {};
   return (
     <VStack color="black">
