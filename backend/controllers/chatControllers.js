@@ -26,6 +26,24 @@ isChat = await User.populate(isChat, {
 
 if(isChat > 0){
   res.send(isChat[0])
+}else{
+  var chatData = {
+    chatName: "sender",
+    isGroupChat: false,
+    users: [req.user._id, userId]
+  }
+
+  try {
+    const createdChat = await Chat.create(chatData);
+    const FullChat = await Chat.findOne({_id: createdChat._id}).populate(
+      "users",
+      "-password"
+    );
+
+    res.status(200).send(FullChat)
+  } catch (error) {
+    
+  }
 }
 
 })
