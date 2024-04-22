@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../modals/userModel.js");
 const asyncHandler = require("express-async-handler");
 
-const product = asyncHandler (async (req, res, next ) => {
+const Protect = asyncHandler (async (req, res, next ) => {
     let token;
 
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
@@ -13,6 +13,7 @@ const product = asyncHandler (async (req, res, next ) => {
             next()
         } catch (error) {
             res.status(401)
+            res.send("you are not autharized")
             throw new Error("Not Autharaized , no token")
         }
     }
@@ -22,4 +23,4 @@ const product = asyncHandler (async (req, res, next ) => {
     }
 })
 
-module.exports = {product}
+module.exports = { Protect };
