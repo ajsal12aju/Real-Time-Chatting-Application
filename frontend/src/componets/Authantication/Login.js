@@ -26,7 +26,7 @@ function Login() {
   const handleClick = () => {
     setShow(!show);
   };
-  const postDetails = () => {};
+  // const postDetails = () => {};
   const submitHandler = async () => {
     setLoading(true);
 if( !email || !password ){
@@ -47,7 +47,7 @@ if( !email || !password ){
     };
     const { data } = await axios.post(
       "/api/user/login",
-      { email, password },
+      {email, password },
       config
     );
   toast({
