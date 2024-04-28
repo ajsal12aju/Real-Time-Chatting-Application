@@ -102,7 +102,7 @@ console.log(users, "====users====")
 
 const renameGroup = asyncHandler(async (req, res) => {
 const {chatId, chatName} = req.body;
-
+console.log(chatId, "=====chatId====")
 const updatedChat = await Chat.findByIdAndUpdate(
   chatId,
   {
@@ -111,7 +111,14 @@ const updatedChat = await Chat.findByIdAndUpdate(
   {
   new : true
   }
-)
+).populate("users", "-password").populate("groupAdimn", "-password");
+
+if(updatedChat){
+  res.status(404);
+  throw new Error("chat not found")
+}else{
+  res.json(updatedChat)
+}
 })
 
 module.exports = { accessChat, fetchChats, createGroupChat, renameGroup };
