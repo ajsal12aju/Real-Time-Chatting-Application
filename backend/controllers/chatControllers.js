@@ -73,7 +73,7 @@ const createGroupChat = asyncHandler(async (req, res) =>{
   if(!req.body.users || !req.body.name){
     return res.status(400).send({message:"please fill all the feilds"})
   }
-  var users = json.parse(req.body.users)
+  var users = JSON.parse(req.body.users)
 console.log(users, "====users====")
   if(users.length < 2) {
     return res.status(400).send("more than 2 users are requerd for the group chat")
@@ -100,4 +100,18 @@ console.log(users, "====users====")
   }
 });
 
-module.exports = { accessChat, fetchChats, createGroupChat };
+const renameGroup = asyncHandler(async (req, res) => {
+const {chatId, chatName} = req.body;
+
+const updatedChat = await Chat.findByIdAndUpdate(
+  chatId,
+  {
+    chatName
+  },
+  {
+  new : true
+  }
+)
+})
+
+module.exports = { accessChat, fetchChats, createGroupChat, renameGroup };
