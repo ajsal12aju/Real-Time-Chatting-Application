@@ -80,7 +80,7 @@ console.log(users, "====users====")
   }
 
   users.push(req.user);
-console.log(users, "====users====");
+  console.log(users, "====2nd====");
 
   try {
 
