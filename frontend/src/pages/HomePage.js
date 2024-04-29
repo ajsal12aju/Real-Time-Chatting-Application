@@ -2,7 +2,7 @@ import { Box, Container, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@
 import React, { useEffect } from 'react'
 import Login from '../componets/Authantication/Login';
 import Signup from '../componets/Authantication/Signup';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 
 function HomePage() {
 const history = useHistory();
