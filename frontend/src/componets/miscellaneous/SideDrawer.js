@@ -22,19 +22,19 @@ function SideDrawer() {
           <Button variant="gohst">
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
-              Search user
+              Search user name
             </Text>
           </Button>
         </Tooltip> 
         <Text fontSize="2xl" fontFamily="Work sans">
           Chat App
         </Text>
-
-        <div>
+                <div>
           <Menu>
-            <MenuButton as={Button}>Actions <BellIcon/></MenuButton>
+            <MenuButton as={Button}> Actions
+             <BellIcon/>
+             </MenuButton>
             <MenuList>
-
               <MenuItem>Download</MenuItem>
               <MenuItem>Create a Copy</MenuItem>
               <MenuItem>Mark as Draft</MenuItem>
