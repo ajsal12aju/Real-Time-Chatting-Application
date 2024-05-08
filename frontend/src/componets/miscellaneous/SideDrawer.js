@@ -22,12 +22,12 @@ function SideDrawer() {
           <Button variant="gohst">
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
-              Search user 
+              Search user name
             </Text>
           </Button>
         </Tooltip> 
         <Text fontSize="2xl" fontFamily="Work sans">
-          Chat App
+          Chat App datas
         </Text>
                 <div>
           <Menu>
