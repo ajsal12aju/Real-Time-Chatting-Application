@@ -22,7 +22,7 @@ function SideDrawer() {
           <Button variant="gohst">  
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
-              Search user name is updated eds
+              Search user name is updated edsv d
             </Text>
           </Button>
         </Tooltip> 
