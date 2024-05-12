@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
@@ -30,7 +30,7 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Chat App datas
+          Chat App
         </Text>
         <div>
           <Menu>
@@ -47,10 +47,17 @@ function SideDrawer() {
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              <Avatar size="sm" cursor="pointer" name={user.name}></Avatar>
+              <Avatar
+                size="sm"
+                cursor="pointer"
+                name={user.name}
+                src={user.pic}
+              ></Avatar>
             </MenuButton>
             <MenuList>
-              <MenuItem>Download</MenuItem>
+              <MenuItem>My Profile</MenuItem>
+              <MenuDivider/>
+              <MenuItem>Log Out</MenuItem>
             </MenuList>
           </Menu>
         </div>
