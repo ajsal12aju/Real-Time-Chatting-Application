@@ -1,6 +1,6 @@
-import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
-
+import  {BellIcon} from "@chakra-ui/icons"
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -19,21 +19,33 @@ function SideDrawer() {
         borderWidth="5px"
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="gohst">  
+          <Button variant="gohst">
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
-              Search 
+              Search
             </Text>
           </Button>
-        </Tooltip> 
+        </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
           Chat App datas
         </Text>
-                <div>
+        <div>
           <Menu>
-            <MenuButton as={Button}> Actions
-             <BellIcon/>
-             </MenuButton>
+            <MenuButton as={Button}>
+              <BellIcon fontSize="2xl" m={1} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Download</MenuItem>
+              <MenuItem>Create a Copy</MenuItem>
+              <MenuItem>Mark as Draft</MenuItem>
+              <MenuItem>Delete</MenuItem>
+              <MenuItem>Attend a Workshop</MenuItem>
+            </MenuList>
+          </Menu>
+          <Menu>
+            <MenuButton as={Button}>
+              <BellIcon fontSize="2xl" m={1} />
+            </MenuButton>
             <MenuList>
               <MenuItem>Download</MenuItem>
               <MenuItem>Create a Copy</MenuItem>
