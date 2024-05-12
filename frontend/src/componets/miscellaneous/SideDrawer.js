@@ -1,12 +1,15 @@
-import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
-import  {BellIcon} from "@chakra-ui/icons"
+import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
+import { ChatState } from "../../Context/ChatProvider";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState("");
+
+  const {user} = ChatState()
 
   return (
     <>
@@ -31,7 +34,7 @@ function SideDrawer() {
         </Text>
         <div>
           <Menu>
-            <MenuButton as={Button}>
+            <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList>
@@ -43,15 +46,11 @@ function SideDrawer() {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button}>
-              <BellIcon fontSize="2xl" m={1} />
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              <Avatar size="sm" cursor="pointer" name={user.name}></Avatar>
             </MenuButton>
             <MenuList>
               <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
             </MenuList>
           </Menu>
         </div>
