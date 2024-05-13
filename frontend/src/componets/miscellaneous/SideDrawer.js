@@ -3,13 +3,23 @@ import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./profileModal";
+import { useHistory } from "react-router-dom";
+
+
 function SideDrawer() {
+
+  const history = useHistory();
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState("");
 
   const {user} = ChatState()
+
+     const logoutHandler = () => {
+       localStorage.removeItem("userInfo");
+      history.push("/");
+     };
 
   return (
     <>
@@ -55,11 +65,11 @@ function SideDrawer() {
               ></Avatar>
             </MenuButton>
             <MenuList>
-              <ProfileModal>
+              <ProfileModal user={user}>
                 <MenuItem>My Profile</MenuItem>
               </ProfileModal>
               <MenuDivider />
-              <MenuItem>Log Out</MenuItem>
+              <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
             </MenuList>
           </Menu>
         </div>
