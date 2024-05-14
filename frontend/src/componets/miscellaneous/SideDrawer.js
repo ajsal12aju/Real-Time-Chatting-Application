@@ -64,8 +64,21 @@ function SideDrawer() {
      });
    }
      }
-const accessChat = (userId) => {
+const accessChat = async (userId) => {
+try {
+  setLoading(true)
 
+  const config = {
+    headers: {
+      "Content-type" :"application/json",
+      Authorization: `Bearer ${user.token}`
+
+    },
+  };
+  const {data} = await axios.post("/api/chat", {userId}, config)
+} catch (error) {
+  
+}
 }
   return (
     <>
