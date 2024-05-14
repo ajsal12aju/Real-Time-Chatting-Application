@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Drawer, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
@@ -77,7 +77,13 @@ function SideDrawer() {
         </div>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}> 
-
+<DrawerOverlay>
+  <DrawerContent>
+    <DrawerHeader borderBottomWidth="1px">
+      Search Users
+    </DrawerHeader>
+  </DrawerContent>
+</DrawerOverlay>
       </Drawer>
     </>
   );
