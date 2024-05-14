@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
@@ -34,7 +34,7 @@ function SideDrawer() {
         borderWidth="5px"
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="gohst">
+          <Button variant="gohst" onClick={onOpen}>
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
               Search
@@ -76,14 +76,18 @@ function SideDrawer() {
           </Menu>
         </div>
       </Box>
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}> 
-<DrawerOverlay>
-  <DrawerContent>
-    <DrawerHeader borderBottomWidth="1px">
-      Search Users
-    </DrawerHeader>
-  </DrawerContent>
-</DrawerOverlay>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
+          </DrawerContent>
+        </DrawerOverlay>
+        <DrawerBody>
+          <Box display="flex" pb={2}>
+<Input placeholder="Search by name or mail" mr={2} value={search} onChange={(e) => setSearch(e.target.value)}/>
+<Button onClick={handleSearch}></Button>
+          </Box>
+        </DrawerBody>
       </Drawer>
     </>
   );
