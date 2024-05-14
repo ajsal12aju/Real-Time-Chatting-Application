@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Text, Tooltip, chakra, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
@@ -27,7 +27,7 @@ function SideDrawer() {
       history.push("/");
      };
 
-     const toast = useToast()
+     const toast = useToast();
 
      const handleSearch = async () =>{
    if(!search){
@@ -76,11 +76,21 @@ try {
     },
   };
   const {data} = await axios.post("/api/chat", {userId}, config)
+
+  if(!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
+
   setLoadingChat(data);
   setLoading(false);
   onClose();
 } catch (error) {
-  
+     toast({  
+       title: "Error Occured",
+       description: error.message,
+       status: "error",
+       duration: 3000,
+       isClosable: true,
+       position: "top-left",
+     });
 }
 }
   return (
@@ -161,6 +171,9 @@ try {
                 />
               ))
             )}
+
+            {
+              loadingChat && <Spinner ml="auto" display="flex"/>           }
           </DrawerBody>
         </DrawerContent>
       </Drawer>
