@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/hooks";
 import axios from "axios";
 import ChatLoading from "../ChatLoading";
+import UserListItem from "../UserListItem";
 
 
 function SideDrawer() {
@@ -16,6 +17,7 @@ function SideDrawer() {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState("");
+  console.log(searchResult, "===search====");
 
   const {user} = ChatState()
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -135,12 +137,13 @@ const accessChat = (userId) => {
             {loading ? (
               <ChatLoading />
             ) : (
-              searchResult?.map((user) => {
+              searchResult?.map((user) => (
                 <UserListItem
                   key={user._id}
+                  user={user}
                   handleFunction={() => accessChat(user._id)}
-                />;
-              })
+                />
+              ))
             )}
           </DrawerBody>
         </DrawerContent>
