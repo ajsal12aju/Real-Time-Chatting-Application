@@ -19,7 +19,7 @@ function SideDrawer() {
   const [loadingChat, setLoadingChat] = useState("");
   console.log(searchResult, "===search====");
 
-  const {user} = ChatState()
+  const { user, setSelectedChat, chats, setChats } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
      const logoutHandler = () => {
@@ -76,6 +76,9 @@ try {
     },
   };
   const {data} = await axios.post("/api/chat", {userId}, config)
+  setLoadingChat(data);
+  setLoading(false);
+  onClose();
 } catch (error) {
   
 }
