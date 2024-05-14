@@ -2,13 +2,12 @@ import React from 'react'
 // import { ChatState } from '../Context/ChatProvider'
 import { Avatar, Box, Text } from '@chakra-ui/react'
 
-function UserListItem({user, handleFunciton}) {
-
-    // const {user} = ChatState()
-console.log(user, "======useddr======");
+function UserListItem({ user, handleFunction }) {
+  // const {user} = ChatState()
+  console.log(user, "======useddr======");
   return (
     <Box
-      onClick={handleFunciton}
+      onClick={handleFunction}
       cursor="pointer"
       bg="#E8E8E8"
       _hover={{

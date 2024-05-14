@@ -16,7 +16,7 @@ function SideDrawer() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingChat, setLoadingChat] = useState("");
+  const [loadingChat, setLoadingChat] = useState(false);
   console.log(searchResult, "===search====");
 
   const { user, setSelectedChat, chats, setChats } = ChatState();
@@ -65,6 +65,7 @@ function SideDrawer() {
    }
      }
 const accessChat = async (userId) => {
+  console.log(userId, "====userId====");
 try {
   setLoadingChat(true);
 
@@ -90,6 +91,8 @@ setSelectedChat(data)
        isClosable: true,
        position: "top-left",
      });
+       setLoadingChat(false);
+
 }
 }
   return (

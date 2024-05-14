@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider'
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
@@ -30,6 +30,11 @@ function MyChats() {
        });
     }
   }
+
+   useEffect(() => {
+setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+fetchChats();
+   },[])
 
   return (
     <div style={{color:'white'}}>
