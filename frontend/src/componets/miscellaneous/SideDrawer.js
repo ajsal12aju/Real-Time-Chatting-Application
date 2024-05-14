@@ -66,7 +66,7 @@ function SideDrawer() {
      }
 const accessChat = async (userId) => {
 try {
-  setLoading(true)
+  setLoadingChat(true);
 
   const config = {
     headers: {
@@ -78,9 +78,8 @@ try {
   const {data} = await axios.post("/api/chat", {userId}, config)
 
   if(!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
-
-  setLoadingChat(data);
-  setLoading(false);
+setSelectedChat(data)
+  setLoadingChat(false);
   onClose();
 } catch (error) {
      toast({  
