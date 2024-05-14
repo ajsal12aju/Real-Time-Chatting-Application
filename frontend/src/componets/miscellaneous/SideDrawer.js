@@ -1,9 +1,10 @@
-import { Avatar, Box, Button, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Drawer, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./profileModal";
 import { useHistory } from "react-router-dom";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 
 function SideDrawer() {
@@ -15,6 +16,7 @@ function SideDrawer() {
   const [loadingChat, setLoadingChat] = useState("");
 
   const {user} = ChatState()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
      const logoutHandler = () => {
        localStorage.removeItem("userInfo");
@@ -74,6 +76,9 @@ function SideDrawer() {
           </Menu>
         </div>
       </Box>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}> 
+
+      </Drawer>
     </>
   );
 }
