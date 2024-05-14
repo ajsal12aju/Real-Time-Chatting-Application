@@ -61,10 +61,10 @@ function SideDrawer() {
        position: "top-left",
      });
    }
-
-
      }
+const accessChat = (userId) => {
 
+}
   return (
     <>
       <Box
@@ -132,7 +132,17 @@ function SideDrawer() {
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
-            {loading ? <ChatLoading/> : <span>results  </span>}
+            {loading ? (
+              <ChatLoading />
+            ) : (
+              searchResult?.map((user) => {
+                <UserListItem
+                  key={user._id}
+                  user={user}
+                  handleFunction={() => accessChat(user._id)}
+                />;
+              })
+            )}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
