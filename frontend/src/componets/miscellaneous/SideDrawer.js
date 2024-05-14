@@ -1,10 +1,11 @@
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, chakra, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import  {BellIcon, ChevronDownIcon} from "@chakra-ui/icons"
 import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./profileModal";
 import { useHistory } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/hooks";
+import axios from "axios";
 
 
 function SideDrawer() {
@@ -22,6 +23,46 @@ function SideDrawer() {
        localStorage.removeItem("userInfo");
       history.push("/");
      };
+
+     const toast = useToast()
+
+     const handleSearch = async () =>{
+   if(!search){
+      toast({
+        title: "Please Type anything in the search.",
+        description: "We've created your account for you.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+      return
+   }
+   try {
+    setLoading(true)
+
+    const config = {
+      headers: {
+        Authorization : `Bearer ${user.token}`
+      }
+    }
+
+    const {data} = await axios.get(`/api/user?search=${search}`, config)
+    setLoading(false)
+    setSearchResult(data)
+   } catch (error) {
+     toast({
+       title: "Error Occured",
+       description: "Faild to Load the Search result.",
+       status: "error",
+       duration: 3000,
+       isClosable: true,
+       position: "top-left",
+     });
+   }
+
+
+     }
 
   return (
     <>
@@ -77,17 +118,21 @@ function SideDrawer() {
         </div>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-          </DrawerContent>
-        </DrawerOverlay>
-        <DrawerBody>
-          <Box display="flex" pb={2}>
-<Input placeholder="Search by name or mail" mr={2} value={search} onChange={(e) => setSearch(e.target.value)}/>
-<Button onClick={handleSearch}></Button>
-          </Box>
-        </DrawerBody>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
+          <DrawerBody>
+            <Box display="flex" pb={2}>
+              <Input
+                placeholder="Search by name or mail"
+                mr={2}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Button onClick={handleSearch}>Go</Button>
+            </Box>
+          </DrawerBody>
+        </DrawerContent>
       </Drawer>
     </>
   );
