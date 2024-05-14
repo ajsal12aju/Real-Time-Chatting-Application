@@ -6,6 +6,7 @@ import ProfileModal from "./profileModal";
 import { useHistory } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/hooks";
 import axios from "axios";
+import ChatLoading from "../ChatLoading";
 
 
 function SideDrawer() {
@@ -131,6 +132,7 @@ function SideDrawer() {
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
+            {loading ? <ChatLoading/> : <span>results  </span>}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
