@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider'
-import { useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 
 function MyChats() {
@@ -37,9 +37,13 @@ fetchChats();
    },[])
 
   return (
-    <div style={{color:'white'}}>
-      MyChats
-    </div>
+    <Box display={{base : selectedChat ? "none" : "flex", md: "flex"}} flexDirection="column" alignItems="center" p={3} bg="white" w={{base: "100%" , md:"31%"}} borderRadius="lg" borderWidth="1px" style={{color:'white'}}>
+      <Box pb={3} px={3} fontSize={{base : "28px" , md: "30px"}} fontFamily="work sans" display="flex" w="100%" justifyContent="space-between" alignItems="center" >
+
+
+
+      </Box>
+    </Box>
   )
 }
 
