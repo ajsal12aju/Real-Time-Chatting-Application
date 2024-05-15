@@ -8,28 +8,28 @@ function MyChats() {
   const {selectedChat, setSelectedChat, user, chats , setChats} = ChatState()
      const toast = useToast();
 
-  const fetchChats = async () =>{
+  const fetchChats = async () => {
     try {
-      
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
 
-    const {data} =  axios.get("/api/chat", config)
-    setChats(data)
-     } catch (error) {
-       toast({
-         title: "Error Occured",
-         description: "Faild to Load the Search result.",
-         status: "error",
-         duration: 3000,
-         isClosable: true,
-         position: "top-left",
-       });
+      const response = await axios.get("/api/chat", config);
+      setChats(response.data);
+    } catch (error) {
+      toast({
+        title: "Error Occurred",
+        description: "Failed to load the chat data.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
     }
-  }
+  };
+
 
    useEffect(() => {
 setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));

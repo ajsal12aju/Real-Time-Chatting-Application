@@ -20,6 +20,7 @@ function SideDrawer() {
   console.log(searchResult, "===search====");
 
   const { user, setSelectedChat, chats, setChats } = ChatState();
+  console.log(chats, "+++chats+++");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
      const logoutHandler = () => {
@@ -77,7 +78,8 @@ try {
     },
   };
   const {data} = await axios.post("/api/chat", {userId}, config)
-
+console.log("++data+++", data);
+console.log(!chats, "===!chats===");
   if(!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
 setSelectedChat(data)
   setLoadingChat(false);
