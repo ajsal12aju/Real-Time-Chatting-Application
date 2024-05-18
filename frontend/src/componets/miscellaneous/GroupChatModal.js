@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -8,21 +8,39 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Box,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-function GroupChatModal() {
-      const { isOpen, onOpen, onClose } = useDisclosure();
+import { ChatState } from '../../Context/ChatProvider';
+function GroupChatModal({children}) {
+  const { user, chats, setChats } = ChatState();
 
+    console.log(children, "===children==")
+      const { isOpen, onOpen, onClose } = useDisclosure();
+      const [groupChatName, setGroupChatName] = useState()
+      const [selectedUsers, setSelectedUsers] = useState([]);
+      const [search, setSearch] = useState("");
+      const [searchResult, setSearchResult] = useState([]);
+      const [loading, setLoading] = useState(false);
+
+      const toast = useToast()
   return (
     <Box>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <span onClick={onOpen}>{children}</span>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader 
+          fontSize="35px"
+          fontFamily="work sans"
+          display="flex"
+          justifyContent="center"
+          >Create Group Chat sdf</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Lorem count={2} />
+          <ModalBody display="flex" flexDirection="column" alignItems="center" >
+          
           </ModalBody>
 
           <ModalFooter>
