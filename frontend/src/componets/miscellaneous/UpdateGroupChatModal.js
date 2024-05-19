@@ -24,7 +24,7 @@ import UserListItem from "../UserListItem";
 
 function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
   const { selectedChat, setSelectedChat, user } = ChatState();
-
+console.log(selectedChat, "=====selectedChat====");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState(selectedChat.chatName);
   const [searchResult, setSearchResult] = useState([]);
@@ -34,29 +34,122 @@ function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
 
   const toast = useToast();
 
-  const handleRemove = (user1) => {
+
+
+
+  const handleRemove = async (user1) => {
+      
+         if (
+           selectedChat.groupAdmin._id !== user._id &&
+           user1._id !== user._id
+         ) {
+           toast({
+             title: "Only admins can remove someone!",
+             status: "error",
+             duration: 5000,
+             isClosable: true,
+             position: "bottom",
+           });
+           return;
+         }
+try {
     
+
+      setLoading(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/chat/groupremove`,
+        {
+          chatId: selectedChat._id,
+          userId: user1._id,
+        },
+        config
+      );
+
+      user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
+      setFetchAgain(!fetchAgain);
+      setLoading(false);
+
+
+} catch (error) {
+      toast({
+        title: "Error Occurred",
+        description: "Failed to rename the group chat.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+      setLoading(false);
+}
+
    };
 
+    //  const handleAddUser = async (user1) => {
+       
+
+    
+
+    //    try {
+    //      setLoading(true);
+    //      const config = {
+    //        headers: {
+    //          Authorization: `Bearer ${user.token}`,
+    //        },
+    //      };
+    //      const { data } = await axios.put(
+    //        `/api/chat/groupadd`,
+    //        {
+    //          chatId: selectedChat._id,
+    //          userId: user1._id,
+    //        },
+    //        config
+    //      );
+
+    //      setSelectedChat(data);
+    //      setFetchAgain(!fetchAgain);
+    //      setLoading(false);
+    //    } catch (error) {
+    //      toast({
+    //        title: "Error Occured!",
+    //        description: error.response.data.message,
+    //        status: "error",
+    //        duration: 5000,
+    //        isClosable: true,
+    //        position: "bottom",
+    //      });
+    //      setLoading(false);
+    //    }
+    //    setGroupChatName("");
+    //  };
+
   const handleAddUser = async (user1) => {
+ 
     if (selectedChat.users.find((u) => u._id === user1._id)) {
-         toast({
-           title: "The user allready in group!",
-           status: "error",
-           duration: 3000,
-           isClosable: true,
-           position: "top-left",
-         });
+      toast({
+        title: "User Already in group!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
     }
-       if (selectedChat.groupAdmin._id === user._id) {
+       if (selectedChat.groupAdmin._id !== user._id) {
          toast({
-           title: "Only Admin can Add Someone!",
+           title: "Only admins can add someone!",
            status: "error",
-           duration: 3000,
+           duration: 5000,
            isClosable: true,
-           position: "top-left",
+           position: "bottom",
          });
+         return;
        }
+
 
        try {
         setLoading(true)
@@ -65,18 +158,17 @@ function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
         };
 
         const { data } = await axios.put(
-          "/api/chat/groupadd",
+          `/api/chat/groupadd`,
           {
             chatId: selectedChat._id,
             userId: user1._id,
           },
           config
         );
-
-          setSelectedChat(data);
-          setFetchAgain(!fetchAgain);
-          setLoading(false);
-
+ setSelectedChat(data);
+ setFetchAgain(!fetchAgain);
+ setLoading(false);
+         
        } catch (error) {
         toast({
           title: "Error Occurred",
@@ -88,6 +180,8 @@ function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
         });
           setLoading(false);
        }
+              setGroupChatName("");
+
     
   };
 
@@ -172,9 +266,9 @@ function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
             <Box display="flex" w="100%" flexWrap="wrap" pb={3}>
               {selectedChat.users.map((u) => (
                 <UserBadgeItem
-                  key={u._id} // Ensure the key is unique for each user
+                  key={u._id}
                   user={u}
-                  onClick={() => handleRemove(u)}
+                  handleFunction={() => handleRemove(u)}
                 />
               ))}
             </Box>
