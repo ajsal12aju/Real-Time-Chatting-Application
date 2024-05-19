@@ -70,7 +70,22 @@ function GroupChatModal({ children }) {
   };
 
   const handleSubmit = () => {
-    // Handle group chat creation
+    // Handle group chat 
+    if(!groupChatName || !selectedUsers) {
+        toast({
+          title: "Please fill Needed Feilds",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+        return;
+    }
+    try {
+      
+    } catch (error) {
+      
+    }
   };
 
   return (
@@ -128,7 +143,7 @@ function GroupChatModal({ children }) {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={handleSubmit}>
+            <Button colorScheme="blue" onClick={() => handleSubmit()}>
               Create Chat
             </Button>
             <Button variant="ghost" onClick={onClose}>
