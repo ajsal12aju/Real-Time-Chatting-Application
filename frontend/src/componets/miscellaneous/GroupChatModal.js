@@ -104,13 +104,15 @@ function GroupChatModal({ children }) {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
-            {selectedUsers.map((u) => (
-              <UserBadgeItem
-                key={u._id}
-                user={u}
-                handleFunction={() => handleDelete(u)}
-              />
-            ))}
+            <Box width="100%" display="flex" flexWrap="wrap">
+              {selectedUsers.map((u) => (
+                <UserBadgeItem
+                  key={u._id}
+                  user={u}
+                  handleFunction={() => handleDelete(u)}
+                />
+              ))}
+            </Box>
             {loading ? (
               <div>Loading...</div>
             ) : (

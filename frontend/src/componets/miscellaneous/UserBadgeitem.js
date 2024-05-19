@@ -15,7 +15,7 @@ function UserBadgeItem({ user, handleFunction }) {
       backgroundColor="Highlight"
       cursor="pointer"
       onClick={handleFunction}
-
+      color="white"
       
     >
       {user.name}
