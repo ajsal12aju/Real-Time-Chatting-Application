@@ -6,11 +6,11 @@ import { getSender } from "../../config/ChatLogics";
 import GroupChatModal from "./GroupChatModal";
 import { ChatState } from "../../Context/ChatProvider";
 
-function MyChats() {
+function MyChats({ fetchAgain }) {
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const toast = useToast();
-console.log(chats, "=======chats======")
+  console.log(chats, "=======chats======");
   const fetchChats = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
@@ -31,7 +31,7 @@ console.log(chats, "=======chats======")
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
 
   return (
     <Box
