@@ -20,7 +20,7 @@ import UserListItem from "../UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 
 function GroupChatModal({ children }) {
-  const { user } = ChatState();
+  const { user, chats, setChats } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -69,7 +69,7 @@ function GroupChatModal({ children }) {
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Handle group chat 
     if(!groupChatName || !selectedUsers) {
         toast({
@@ -82,9 +82,26 @@ function GroupChatModal({ children }) {
         return;
     }
     try {
-      
+          const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      const {data} = await axios.post("/api/user/group",{name: groupChatName, users: JSON.stringify(selectedUsers.map((u) => u._id))}, config);
+      setChats([data, ...chats])
+      onClose()
+       toast({
+         title: "New Group Chat is created",
+         status: "success",
+         duration: 3000,
+         isClosable: true,
+         position: "top-right",
+       });
     } catch (error) {
-      
+        toast({
+          title: "Error Occurred",
+          description: "Failed to load the search results.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-left",
+        });
     }
   };
 
