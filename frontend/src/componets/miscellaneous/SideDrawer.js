@@ -65,38 +65,70 @@ function SideDrawer() {
      });
    }
      }
+// const accessChat = async (userId) => {
+//   console.log(userId, "====userId====");
+// try {
+//   setLoadingChat(true);
+
+//   const config = {
+//     headers: {
+//       "Content-type" :"application/json",
+//       Authorization: `Bearer ${user.token}`
+
+//     },
+//   };
+//   const {data} = await axios.post("/api/chat", {userId}, config)
+// console.log("++data+++", data);
+// console.log(!chats, "===!chats===");
+//   if(!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
+// setSelectedChat(data)
+//   setLoadingChat(false);
+//   onClose();
+// } catch (error) {
+//      toast({  
+//        title: "Error Occured",
+//        description: error.message,
+//        status: "error",
+//        duration: 3000,
+//        isClosable: true,
+//        position: "top-left",
+//      });
+//        setLoadingChat(false);
+
+// }
+// }
 const accessChat = async (userId) => {
-  console.log(userId, "====userId====");
-try {
-  setLoadingChat(true);
+  try {
+    setLoadingChat(true);
 
-  const config = {
-    headers: {
-      "Content-type" :"application/json",
-      Authorization: `Bearer ${user.token}`
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
 
-    },
-  };
-  const {data} = await axios.post("/api/chat", {userId}, config)
-console.log("++data+++", data);
-console.log(!chats, "===!chats===");
-  if(!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
-setSelectedChat(data)
-  setLoadingChat(false);
-  onClose();
-} catch (error) {
-     toast({  
-       title: "Error Occured",
-       description: error.message,
-       status: "error",
-       duration: 3000,
-       isClosable: true,
-       position: "top-left",
-     });
-       setLoadingChat(false);
+    const { data } = await axios.post("/api/chat", { userId }, config);
 
-}
-}
+    if (!chats.find((c) => c._id === data._id)) {
+      setChats([data, ...chats]);
+    }
+
+    setSelectedChat(data);
+    setLoadingChat(false);
+    onClose();
+  } catch (error) {
+    toast({
+      title: "Error Occurred",
+      description: error.message,
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+      position: "top-left",
+    });
+    setLoadingChat(false);
+  }
+};
   return (
     <>
       <Box
