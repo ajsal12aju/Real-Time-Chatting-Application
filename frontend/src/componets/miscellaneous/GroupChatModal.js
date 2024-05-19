@@ -83,7 +83,15 @@ function GroupChatModal({ children }) {
     }
     try {
           const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const {data} = await axios.post("/api/user/group",{name: groupChatName, users: JSON.stringify(selectedUsers.map((u) => u._id))}, config);
+      const { data } = await axios.post(
+        "/api/chat/group",
+        {
+          name: groupChatName,
+          users: JSON.stringify(selectedUsers.map((u) => u._id)),
+        },
+        config
+      );
+      console.log(data, "====data====");
       setChats([data, ...chats])
       onClose()
        toast({
