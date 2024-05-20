@@ -89,49 +89,11 @@ try {
 
    };
 
-    //  const handleAddUser = async (user1) => {
-       
-
-    
-
-    //    try {
-    //      setLoading(true);
-    //      const config = {
-    //        headers: {
-    //          Authorization: `Bearer ${user.token}`,
-    //        },
-    //      };
-    //      const { data } = await axios.put(
-    //        `/api/chat/groupadd`,
-    //        {
-    //          chatId: selectedChat._id,
-    //          userId: user1._id,
-    //        },
-    //        config
-    //      );
-
-    //      setSelectedChat(data);
-    //      setFetchAgain(!fetchAgain);
-    //      setLoading(false);
-    //    } catch (error) {
-    //      toast({
-    //        title: "Error Occured!",
-    //        description: error.response.data.message,
-    //        status: "error",
-    //        duration: 5000,
-    //        isClosable: true,
-    //        position: "bottom",
-    //      });
-    //      setLoading(false);
-    //    }
-    //    setGroupChatName("");
-    //  };
-
   const handleAddUser = async (user1) => {
  
     if (selectedChat.users.find((u) => u._id === user1._id)) {
       toast({
-        title: "User Already in group!",
+        title: "User Already in this group!",
         status: "error",
         duration: 5000,
         isClosable: true,
