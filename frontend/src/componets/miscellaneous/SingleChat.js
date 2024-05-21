@@ -1,10 +1,11 @@
-import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Box, FormControl, IconButton, Input, Spinner, Text, useToast } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender, getSenderFull } from '../../config/ChatLogics';
 import ProfileModal from './profileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
+import axios from 'axios';
 
 function SingleChat({ fetchAgain, setFetchAgain }) {
       const { selectedChat, setSelectedChat, user } = ChatState();
@@ -12,7 +13,75 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState(false);
   const [loading, setLoading] = useState();
-  
+    const toast = useToast();
+
+
+  const fetchMessages = async ()=> {
+    if(!selectedChat) return
+
+    try {
+      const config = {
+        headers: {
+         
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+        const { data } = await axios.get(`/api/message/${selectedChat._id}`, config);
+        setMessages(data)
+        setLoading(false);
+    } catch (error) {
+       toast({
+         title: "Error Occurred",
+         description: "Failed to load the search results.",
+         status: "error",
+         duration: 3000,
+         isClosable: true,
+         position: "top-left",
+       });
+    }
+  } 
+
+  useEffect(() => {
+  fetchMessages();
+  }, [selectedChat])
+
+  const sendMessage = async (event) => {
+     if(event.key === "Enter" && newMessage){
+      try {
+            const config = {
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+              },
+            };
+                        setNewMessage("");
+
+            const { data } = await axios.post(
+              "/api/message",
+              {
+                content: newMessage,
+                chatId: selectedChat._id,
+              },
+              config
+            );
+            setMessages([...messages, data]);
+      } catch (error) {
+          toast({
+            title: "Error Occurred",
+            description: "Failed to load the search results.",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-left",
+          });
+      }
+     }
+  }
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value)
+  };
+
   return (
     <>
       {selectedChat ? (
@@ -66,7 +135,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
 <></>
 )}
 <FormControl onKeyDown={sendMessage} isRequired mt={3}> 
-<Input variant="filled"  />
+<Input variant="filled" placeholder='Enter a message' onChange={typingHandler}/>
 </FormControl>
           </Box>
         </>
