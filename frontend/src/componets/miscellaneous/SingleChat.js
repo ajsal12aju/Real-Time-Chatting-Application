@@ -1,5 +1,5 @@
-import { Box, IconButton, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender, getSenderFull } from '../../config/ChatLogics';
@@ -9,6 +9,10 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 function SingleChat({ fetchAgain, setFetchAgain }) {
       const { selectedChat, setSelectedChat, user } = ChatState();
 
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState(false);
+  const [loading, setLoading] = useState();
+  
   return (
     <>
       {selectedChat ? (
@@ -56,7 +60,14 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             overflow="hidden"
 
           >
-
+{loading ? (
+<Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto" />
+): (
+<></>
+)}
+<FormControl onKeyDown={sendMessage} isRequired mt={3}> 
+<Input variant="filled"  />
+</FormControl>
           </Box>
         </>
       ) : (
