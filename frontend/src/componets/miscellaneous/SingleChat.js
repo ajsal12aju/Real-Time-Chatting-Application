@@ -53,7 +53,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
               headers: {
                 "Content-type": "application/json",
                 Authorization: `Bearer ${user.token}`,
-              },
+              },             
             };
                         setNewMessage("");
 
