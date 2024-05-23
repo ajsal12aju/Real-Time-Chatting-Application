@@ -132,7 +132,9 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
 {loading ? (
 <Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto" />
 ): (
-<></>
+<>
+
+</>
 )}
 <FormControl onKeyDown={sendMessage} isRequired mt={3}> 
 <Input variant="filled" placeholder='Enter a message' onChange={typingHandler}/>
