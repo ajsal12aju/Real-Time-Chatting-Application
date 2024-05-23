@@ -97,7 +97,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             alignItems="center"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              display={{ base: "flex", md: "none" }} 
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
