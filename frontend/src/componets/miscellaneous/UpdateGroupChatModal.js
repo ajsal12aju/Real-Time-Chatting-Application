@@ -20,11 +20,11 @@ import { ViewIcon } from "@chakra-ui/icons";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "./UserBadgeitem";
 import axios from "axios";
-import UserListItem from "../UserListItem";
+import UserListItem from "../UserListItem";    
 
-function UpdateGroupChatModal({ setFetchAgain, fetchAgain }) {
+function UpdateGroupChatModal({ setFetchAgain, fetchAgain, fetchMessages }) {
   const { selectedChat, setSelectedChat, user } = ChatState();
-console.log(selectedChat, "=====selectedChat====");
+  console.log(selectedChat, "=====selectedChat====");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState(selectedChat.chatName);
   const [searchResult, setSearchResult] = useState([]);
@@ -34,27 +34,18 @@ console.log(selectedChat, "=====selectedChat====");
 
   const toast = useToast();
 
-
-
-
   const handleRemove = async (user1) => {
-      
-         if (
-           selectedChat.groupAdmin._id !== user._id &&
-           user1._id !== user._id
-         ) {
-           toast({
-             title: "Only admins can remove someone!",
-             status: "error",
-             duration: 5000,
-             isClosable: true,
-             position: "bottom",
-           });
-           return;
-         }
-try {
-    
-
+    if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
+      toast({
+        title: "Only admins can remove someone!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    try {
       setLoading(true);
       const config = {
         headers: {
@@ -72,10 +63,9 @@ try {
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages()
       setLoading(false);
-
-
-} catch (error) {
+    } catch (error) {
       toast({
         title: "Error Occurred",
         description: "Failed to rename the group chat.",
@@ -85,12 +75,10 @@ try {
         position: "top-left",
       });
       setLoading(false);
-}
-
-   };
+    }
+  };
 
   const handleAddUser = async (user1) => {
- 
     if (selectedChat.users.find((u) => u._id === user1._id)) {
       toast({
         title: "User Already in this group!",
@@ -101,50 +89,46 @@ try {
       });
       return;
     }
-       if (selectedChat.groupAdmin._id !== user._id) {
-         toast({
-           title: "Only admins can add someone!",
-           status: "error",
-           duration: 5000,
-           isClosable: true,
-           position: "bottom",
-         });
-         return;
-       }
+    if (selectedChat.groupAdmin._id !== user._id) {
+      toast({
+        title: "Only admins can add someone!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
 
+    try {
+      setLoading(true);
+      const config = {
+        headers: { Authorization: `Bearer ${user.token}` },
+      };
 
-       try {
-        setLoading(true)
-        const config = {
-          headers: { Authorization: `Bearer ${user.token}` },
-        };
-
-        const { data } = await axios.put(
-          `/api/chat/groupadd`,
-          {
-            chatId: selectedChat._id,
-            userId: user1._id,
-          },
-          config
-        );
- setSelectedChat(data);
- setFetchAgain(!fetchAgain);
- setLoading(false);
-         
-       } catch (error) {
-        toast({
-          title: "Error Occurred",
-          description: "Failed to rename the group chat.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-left",
-        });
-          setLoading(false);
-       }
-              setGroupChatName("");
-
-    
+      const { data } = await axios.put(
+        `/api/chat/groupadd`,
+        {
+          chatId: selectedChat._id,
+          userId: user1._id,
+        },
+        config
+      );
+      setSelectedChat(data);
+      setFetchAgain(!fetchAgain);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occurred",
+        description: "Failed to rename the group chat.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+      setLoading(false);
+    }
+    setGroupChatName("");
   };
 
   const handleRename = async () => {

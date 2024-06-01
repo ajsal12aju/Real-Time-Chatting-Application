@@ -6,6 +6,8 @@ import { getSender, getSenderFull } from '../../config/ChatLogics';
 import ProfileModal from './profileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
+import './style.css'
+import ScrollebleChat from './ScrollebleChat';
 
 function SingleChat({ fetchAgain, setFetchAgain }) {
       const { selectedChat, setSelectedChat, user } = ChatState();
@@ -97,7 +99,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             alignItems="center"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }} 
+              display={{ base: "flex", md: "none" }}
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
@@ -113,6 +115,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
                 <UpdateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
+                  fetchMessages={fetchMessages}
                 />
               </>
             )}
@@ -127,18 +130,29 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             h="100%"
             borderRadius="lg"
             overflow="hidden"
-
           >
-{loading ? (
-<Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto" />
-): (
-<>
-
-</>
-)}
-<FormControl onKeyDown={sendMessage} isRequired mt={3}> 
-<Input variant="filled" placeholder='Enter a message' onChange={typingHandler}/>
-</FormControl>
+            {loading ? (
+              <Spinner
+                size="xl"
+                w={20}
+                h={20}
+                alignSelf="center"
+                margin="auto"
+              />
+            ) : (
+              <>
+                <div className="messages">
+                    <ScrollebleChat messages={messages}/>
+                </div>
+              </>
+            )}
+            <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+              <Input
+                variant="filled"
+                placeholder="Enter a message"
+                onChange={typingHandler}
+              />
+            </FormControl>
           </Box>
         </>
       ) : (
