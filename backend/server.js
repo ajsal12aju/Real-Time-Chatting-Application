@@ -42,4 +42,34 @@ app.get("/api/chat/:id", (req, res) => {
 
  io.on("connection", (socket)=> {
   console.log("connectted to socket.io")
+
+  socket.on("setup", (userData)=>{
+    socket.join(userData?._id);
+    console.log(userData?._id)
+    socket.emit("connected")
+  })
+
+    socket.on("join chat", (room) => {
+      socket.join(room);
+      console.log("user join room", room);
+    });
+
+    socket.on("typing", (room) => socket.in(room).emit("typing"))
+    socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+
+    socket.on("new message", (newMessageRecived) => {
+      var chat = newMessageRecived.chat;
+
+      if (!chat.users) return console.log("chat.users is not defaind");
+      chat.users.forEach((user) => {
+        if (user._id == newMessageRecived.sender._id) return;
+        socket.in(user._id).emit("message recieved", newMessageRecived);
+      });
+    });
+
+socket.off("setup", () => {
+ console.log("user disconnected")
+ socket.leave(userData._id)
+})
+
  })
