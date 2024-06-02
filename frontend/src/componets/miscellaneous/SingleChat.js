@@ -9,6 +9,9 @@ import axios from 'axios';
 import './style.css'
 import ScrollebleChat from './ScrollebleChat';
 
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
+
 function SingleChat({ fetchAgain, setFetchAgain }) {
       const { selectedChat, setSelectedChat, user } = ChatState();
 
