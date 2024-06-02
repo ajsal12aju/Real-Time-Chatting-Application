@@ -8,6 +8,7 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
 import './style.css'
 import ScrollebleChat from './ScrollebleChat';
+import io from "socket.io-client"
 
 const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
