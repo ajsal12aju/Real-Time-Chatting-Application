@@ -8,6 +8,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import axios from "axios";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserListItem";
+import { getSender } from "../../config/ChatLogics";
 
 
 function SideDrawer() {
@@ -27,7 +28,7 @@ function SideDrawer() {
     notification,
     setNotification,
   } = ChatState();
-  console.log(chats, "+++chats+++");
+  console.log(notification, "+++notification+++");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
      const logoutHandler = () => {
@@ -162,12 +163,21 @@ const accessChat = async (userId) => {
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
+            <MenuList pl={2}>
+              {!notification.length && "No New messages "}
+              {notification.map((notif) => (
+                <MenuItem key={notif._id} onClick={()=> {
+                  setSelectedChat(notif.chat);
+                  setNotification(notification.filter((n) => n !== notif))
+                }}>
+                  {notif.chat.isGroupChat
+                    ? `New messages in ${notif.chat.cahtName}`
+                    : `New messages from ${getSender(
+                        user,
+                        notif.chat.users
+                      )} `}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
           <Menu>
@@ -215,8 +225,7 @@ const accessChat = async (userId) => {
               ))
             )}
 
-            {
-              loadingChat && <Spinner ml="auto" display="flex"/>           }
+            {loadingChat && <Spinner ml="auto" display="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
