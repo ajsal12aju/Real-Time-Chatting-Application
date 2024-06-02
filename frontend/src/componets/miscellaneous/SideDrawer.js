@@ -19,7 +19,14 @@ function SideDrawer() {
   const [loadingChat, setLoadingChat] = useState(false);
   console.log(searchResult, "===search====");
 
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
   console.log(chats, "+++chats+++");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
