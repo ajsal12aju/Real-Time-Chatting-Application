@@ -31,5 +31,15 @@ app.get("/api/chat/:id", (req, res) => {
   res.send(req);
 }); 
 
-app.listen(PORT, console.log(`server start on Ports ${PORT}`.yellow.bold));
+ const server =  app.listen(PORT, console.log(`server start on Ports ${PORT}`.yellow.bold));
 
+ const io = require("socket.io")(server, {
+   pingTimeout: 60000,
+   cors: {
+     origin: "http://localhost:3000",
+   },
+ });
+
+ io.on("connection", (socket)=> {
+  console.log("connectted to socket.io")
+ })
