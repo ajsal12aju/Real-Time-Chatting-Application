@@ -36,35 +36,33 @@ app.use("/api/message", messageRoutes);
 //     res.send("API is running successFully")
 //   })
 // }
-  
-const isProduction = process.env.NODE_ENV === "production";
-const buildPath = path.join(__dirname, "..", "frontend", "build"); // Adjusted path
+ const isProduction = process.env.NODE_ENV === "production";
+ const buildPath = path.join(__dirname, "..", "frontend", "build"); // Adjusted path
 
-if (isProduction) {
-  if (fs.existsSync(buildPath)) {
-    app.use(express.static(buildPath));
+ if (isProduction) {
+   if (fs.existsSync(buildPath)) {
+     app.use(express.static(buildPath));
 
-    app.get("*", (req, res) => {
-      const indexPath = path.resolve(buildPath, "index.html"); // Corrected path resolution
-      if (fs.existsSync(indexPath)) {
-        res.sendFile(indexPath);
-      } else {
-        console.error(`File not found: ${indexPath}`);
-        res.status(404).send("Index file not found");
-      }
-    });
-  } else {
-    console.error(`Build directory not found: ${buildPath}`);
-    // Handle the case where the build directory does not exist
-    app.get("*", (req, res) => {
-      res.status(404).send("Build directory not found");
-    });
-  }
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running successfully");
-  });
-}
+     app.get("*", (req, res) => {
+       const indexPath = path.resolve(buildPath, "index.html"); // Corrected path resolution
+       if (fs.existsSync(indexPath)) {
+         res.sendFile(indexPath);
+       } else {
+         console.error(`File not found: ${indexPath}`);
+         res.status(404).send("Index file not found");
+       }
+     });
+   } else {
+     console.error(`Build directory not found: ${buildPath}`);
+     app.get("*", (req, res) => {
+       res.status(404).send("Build directory not found");
+     });
+   }
+ } else {
+   app.get("/", (req, res) => {
+     res.send("API is running successfully");
+   });
+ }
   app.use(notFound);
 app.use(errorHandler)
 
