@@ -23,46 +23,22 @@ app.use("/api/user", userRoute);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-const __dirname1 = path.resolve()
+// const __dirname1 = path.resolve()
 
-if (process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join(__dirname1, '/frontend/build')))
+if (process.env.NODE_ENV === "production") {
+  const buildPath = path.join(__dirname, "../frontend/build");
+
+  app.use(express.static(buildPath));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname1,"..","frontend", "build", "index.html"))
-  })
-}else{
-  app.get("/" , (req,res) => {
-    res.send("API is running successFully")
-  })
+    res.sendFile(path.resolve(buildPath, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running successfully");
+  });
 }
-//  const isProduction = process.env.NODE_ENV === "production";
-//  const buildPath = path.join(__dirname, "..", "frontend", "build"); // Adjusted path
 
-//  if (isProduction) {
-//    if (fs.existsSync(buildPath)) {
-//      app.use(express.static(buildPath));
-
-//      app.get("*", (req, res) => {
-//        const indexPath = path.resolve(buildPath, "index.html"); // Corrected path resolution
-//        if (fs.existsSync(indexPath)) {
-//          res.sendFile(indexPath);
-//        } else {
-//          console.error(`File not found: ${indexPath}`);
-//          res.status(404).send("Index file not found");
-//        }
-//      });
-//    } else {
-//      console.error(`Build directory not found: ${buildPath}`);
-//      app.get("*", (req, res) => {
-//        res.status(404).send("Build directory not found");
-//      });
-//    }
-//  } else {
-//    app.get("/", (req, res) => {
-//      res.send("API is running successfully");
-//    });
-//  }
   app.use(notFound);
 app.use(errorHandler)
 
