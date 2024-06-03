@@ -79,7 +79,7 @@ app.get("/api/chat/:id", (req, res) => {
     socket.on("new message", (newMessageRecived) => {
       var chat = newMessageRecived.chat;
 
-      if (!chat.users) return console.log("chat.users is not defaind");
+      if (!chat.users) return console.log("chat.users is not defiend");
       chat.users.forEach((user) => {
         if (user._id == newMessageRecived.sender._id) return;
         socket.in(user._id).emit("message recieved", newMessageRecived);
