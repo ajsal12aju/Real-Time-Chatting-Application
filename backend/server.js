@@ -125,7 +125,7 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   app.get("/", (req, res) => {
-    res.send("API iS runningg gdgdd...  successfully");
+    res.send("API iS runningg updated...  successfully");
   });
 }
 
@@ -168,7 +168,6 @@ io.on("connection", (socket) => {
 
   socket.on("typing", (room) => socket.in(room).emit("typing"));
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
-
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
 
