@@ -122,10 +122,10 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     const indexPath = path.resolve(buildPath, "index.html");
     res.sendFile(indexPath);
-  });
+  });  v             
 } else {
   app.get("/", (req, res) => {
-    res.send("API iS runningg updated...  successfully");
+    res.send("API iS runningg updatedhj...  successfully");
   });
 }
 
