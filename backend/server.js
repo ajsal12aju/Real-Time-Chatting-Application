@@ -153,7 +153,7 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected data   bn   d to socket.io");
+  console.log("Connected from here socket.io");
 
   socket.on("setup", (userData) => {
     socket.join(userData?._id);
