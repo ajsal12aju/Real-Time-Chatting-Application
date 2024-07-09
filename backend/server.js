@@ -153,7 +153,7 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected from here socket.io");
+  console.log("Connected from is socket.io");
 
   socket.on("setup", (userData) => {
     socket.join(userData?._id);
@@ -178,7 +178,6 @@ io.on("connection", (socket) => {
       socket.in(user._id).emit("message received", newMessageReceived);
     });
   });
-
   socket.off("setup", () => {
     console.log("User disconnected");
     socket.leave(userData._id);
