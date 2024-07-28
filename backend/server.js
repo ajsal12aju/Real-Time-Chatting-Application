@@ -125,7 +125,7 @@ if (process.env.NODE_ENV === "production") {
   });  v             
 } else {
   app.get("/", (req, res) => {
-    res.send("API iS runningg updated curddrected...  successfully");
+    res.send("API iS runningg updated data curddrected...  successfully");
   });
 }
 
