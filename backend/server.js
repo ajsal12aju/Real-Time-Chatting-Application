@@ -97,7 +97,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const { chats } = require("./data/data");
 const connectDB = require("./config/db");
-const colors = require("colors");
+const colors = require("colors"); 
 const userRoute = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
@@ -125,7 +125,7 @@ if (process.env.NODE_ENV === "production") {
   });  v             
 } else {
   app.get("/", (req, res) => {
-    res.send("API iS runningg updated data curddrected...  successfully");
+    res.send("API iS runningg updated data done curddrected...  successfully");
   });
 }
 
