@@ -121,11 +121,11 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     const indexPath = path.resolve(buildPath, "index.html");
-    res.sendFile(indexPath);
+    res.sendFile(indexPath); 
   });  v             
 } else {
   app.get("/", (req, res) => {
-    res.send("API iS runningg updated data done curddrected...  successfully");
+    res.send("API iS runningg updated data done gg curddrected...  successfully");
   });
 }
 
@@ -170,7 +170,6 @@ io.on("connection", (socket) => {
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
-
     if (!chat.users) return console.log("chat.users is not defined");
 
     chat.users.forEach((user) => {
