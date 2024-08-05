@@ -153,7 +153,7 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected from is socket.io");
+  console.log("Connected s is socket.io");
 
   socket.on("setup", (userData) => {
     socket.join(userData?._id);
@@ -170,7 +170,7 @@ io.on("connection", (socket) => {
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
-    if (!chat.users) return console.log("chat.users is not defined");
+    if (!chat.users) return console.log("chat.usersg is not defined");
 
     chat.users.forEach((user) => {
       if (user._id == newMessageReceived.sender._id) return;
