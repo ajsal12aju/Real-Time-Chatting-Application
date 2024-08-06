@@ -170,7 +170,7 @@ io.on("connection", (socket) => {
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
-    if (!chat.users) return console.log("chat.usersg is not defined");
+    if (!chat.users) return console.log("chat.usersg dis not defined");
 
     chat.users.forEach((user) => {
       if (user._id == newMessageReceived.sender._id) return;
