@@ -26,7 +26,7 @@ if(user) history.push('/chats')
         borderWidth="1px"
       >
         <Text fontSize="4xl" fontFamily="work sans" color="black">
-          Welcome To 
+          Welcome To Chatting App
         </Text>
       </Box>
       <Box
